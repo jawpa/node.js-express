@@ -1,1 +1,3 @@
-basicos/node_modules/*
+basicos/node_modules/
+*.log
+.DS_Store
