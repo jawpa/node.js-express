@@ -1,0 +1,26 @@
+{
+  "name": "hola_mundo",
+  "version": "1.0.0",
+  "description": "primer programita en express",
+  "main": "hola_mundo.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jawpa/node.js-express.git"
+  },
+  "keywords": [
+    "hola",
+    "mundo"
+  ],
+  "author": "h javier palacio",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jawpa/node.js-express/issues"
+  },
+  "homepage": "https://github.com/jawpa/node.js-express#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
