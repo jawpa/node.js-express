@@ -1,3 +1,4 @@
-basicos/node_modules/
+basico/node_modules/
+contador/node_modules/
 *.log
 .DS_Store
