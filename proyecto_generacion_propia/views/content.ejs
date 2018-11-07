@@ -1,0 +1,33 @@
+<article id="ejs" class="container">
+	<h1>
+		<a href="<%=enlace%>" target="_blank"><%=titulo%></a>
+	</h1>
+	<p><%=descripcion%></p>
+
+</article>
+<div id="logo-node"></div>
+<br>
+<button id="presionar">Presionar</button>
+<script>
+	alert('código javascript desde EJS')
+	document.querySelector('#presionar').onclick = () =>{ 
+	    alert('código javascript desde EJS')
+	}
+
+</script>
+<p>Hola <%=nombre%></p>  
+<article class="container">
+	<h2>Estaciones del año</h2>
+	<!-- usamos la matriz declarada en la ruta -->
+	<% for(var i=0; i<estaciones.length; i++) {%>
+	   <div class="item2">
+	   		<h3><%= estaciones[i][0] %></h3>
+	   		<ul>
+	   			<% for(var j=0; j<estaciones[i][1].length; j++) {%>
+					<li><%= estaciones[i][1][j] %></li>
+				<% } %>
+	   		</ul>
+	   </div>
+	<% } %>
+	
+</article>

@@ -1,0 +1,19 @@
+{
+  "name": "proyecto_generacion_propia",
+  "version": "1.0.0",
+  "description": "proyecto de generación propia",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor server.js"
+  },
+  "author": "hectorjavierpalacio@gmail.com",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "jade": "^1.11.0",
+    "morgan": "^1.9.1",
+    "serve-favicon": "^2.5.0"
+  }
+}

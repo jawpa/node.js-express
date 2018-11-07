@@ -1,0 +1,102 @@
+extend layout
+block content
+  h1 Hola Mundo desde Jade
+  h2 Te estamos llamando
+  // probamos la función jade, la variable locals y la propiedad titulo
+  // variable backend de express en route/index.js
+  h3= titulo
+  ul 
+    li uno
+    li dos
+    li tres
+    li cuatro
+    li cinco
+      ol
+        li cinco y uno
+        li cinco y dos se ve como comentario en html
+        li cinco y tres sólo se ve en jade
+
+  
+  
+
+  // creando un enlace 
+  // usando las dos variable de index.js
+  article#jade.container
+    h2 
+      // probamos la función jade, la variable locals y la propiedad titulo
+      // variable backend de express en route/index.js
+      a(href="#{enlace}",target="_blank")=titulo
+    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Impedit iusto vero earum consectetur, enim ducimus quidem repellendus molestias quae optio consequuntur quibusdam soluta. Exercitationem non, alias a impedit expedita sint.
+
+  article.container
+    h2 Estructura básica de jade
+    p 
+    // concatenamos contenido
+      |Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+      |Animi adipisci rerum magni perferendis consequuntur ipsum, consequatur, 
+      |quisquam itaque deserunt, ea eligendi voluptas nihil iure, quo. 
+      |Velit possimus magnam accusamus libero
+    p Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia consequatur minus enim beatae atque itaque sequi ducimus exercitationem quibusdam cupiditate cumque consectetur numquam non, est doloribus labore. Doloremque, atque, eaque.
+    // incluimos a logo.jade, cuya clase css incluye la imagen
+    include logo
+
+  article.container
+    // el punto habilita la interpolación, podemos interpolar código html
+    p.  
+      leer la documentación de  
+      #[a(href="https://www.npmjs.com/package/jade",target="_blank") jade]
+      o la de pug
+      #[a(href="https://www.npmjs.com/package/pug",target="_blank") pug]
+      o la de 
+      <a href="https://www.w3schools.com/html/" target="_blank"> html</a>
+    br
+    button#presionar.boton  Presionar
+    // interpolamos código javascript
+    script.
+      alert('código javascript desde jade')
+      document.querySelector('#presionar').onclick = () =>{ 
+        alert('código javascript desde jade')
+      }
+
+    // creamos una variable y la usamos dinámicamente
+    -var nombre = 'Neptuno'
+    p Hola #{nombre}  
+
+    // ponemos la fecha y hora
+    -var fecha = new Date()
+    -var hora = fecha.getHours()
+    -var minutos = fecha.getMinutes()
+
+    // no hace falta el escape "-" porque if y else son condicionales que usa jade
+    if(hora < 12)
+      p La hora es #{hora} am
+    else
+      p La hora es #{hora-12}:#{minutos} pm
+
+
+    // uso de each
+    -var estaciones = ['Primavera','Verano','Otoño','Invierno']  
+
+    h2 Estaciones del año
+    ol
+      each estacion in estaciones
+        li #{estacion}
+
+    // uso de mixins, funciones en jade
+    -var nombres = ['pepa','pepe', 'pepi','pepo','pepu']
+    -var numeros = ['uno','dos','tres','cuatro','cinco']
+    mixin nombresNumeros(nombre, numeros)
+        div.item
+          h3 #{nombre}
+          ul
+            each numero in numeros
+              li #{numero}
+
+    article.container
+      h2 Números y palabras
+      // ejecutamos el mixin, con el símbolo +
+      +nombresNumeros(nombres[0],numeros)
+      +nombresNumeros(nombres[1],numeros)
+      +nombresNumeros(nombres[2],numeros)
+      +nombresNumeros(nombres[3],numeros)
+      +nombresNumeros(nombres[4],numeros)
