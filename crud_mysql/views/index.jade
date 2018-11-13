@@ -1,0 +1,14 @@
+extend layout.jade
+
+block content
+  section.container
+    div.item.logo
+    div.item
+      h1
+        a(href="/")=title
+      article.item
+        // validamos si la propiedad data (que es un arreglo) de la varible locals de routes/index.js tiene contenido 
+        -if (data.length)
+          p Mostrar Datos
+        -else
+          p.error No existen películas en la base de datos

@@ -1,0 +1,21 @@
+html{
+	background-color: #1d1d1d;
+}
+
+a, h1, label{
+	color: #80bd01;
+}
+
+a:hover{
+	color: rgba(128,189,1,.75);
+}
+
+.logo{
+	display: block;
+	margin: 1rem auto;
+	width: 450px;
+	height: 150px;
+	vertical-align: bottom;
+	background: url("../img/atari.svg.png") no-repeat center;
+	background-size: contain;
+}

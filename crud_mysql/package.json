@@ -1,0 +1,22 @@
+{
+  "name": "crud_mysql",
+  "version": "1.0.0",
+  "description": "an api crud with mysql in express.js of node.js",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "supervisor server.js"
+  },
+  "author": "jawpa",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "express-myconnection": "^1.0.4",
+    "jade": "^1.11.0",
+    "morgan": "^1.9.1",
+    "mysql": "^2.16.0",
+    "responsimple": "^1.0.1",
+    "serve-favicon": "^2.5.0"
+  }
+}
