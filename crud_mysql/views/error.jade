@@ -1,8 +1,15 @@
 extends layout
 
 block content
-	h1=titulo
-	h3=descripcion
-	pre.error
-		code #{error.stack}
-	a(href="/") Regresar
+	article.container
+		div.item.center
+			h1=titulo
+			h2=descripcion
+			h3
+				// enlace a home
+				a(href="/") Regresar
+			br
+			// clases error y left	
+			pre.error.left
+				code #{error.stack}
+			

@@ -2,12 +2,32 @@ html{
 	background-color: #1d1d1d;
 }
 
-a, h1, label{
+a, h1, h2, label{
 	color: #80bd01;
 }
 
 a:hover{
-	color: rgba(128,189,1,.75);
+	opacity: .75;
+}
+
+fieldset{
+	padding: 1rem;
+	border: medium solid #80bd01;
+}
+
+.add{
+	background-color: green;
+}
+
+.button{
+	padding: .5rem 1rem;
+	color: #fff;
+	background-color: #80bd01;
+	cursor: pointer;
+}
+
+.button:hover{
+	opacity: .5;
 }
 
 .logo{
@@ -18,4 +38,35 @@ a:hover{
 	vertical-align: bottom;
 	background: url("../img/atari.svg.png") no-repeat center;
 	background-size: contain;
+}
+
+
+.poster{
+	max-width: 100px;
+}
+
+.table{
+	width: 100%;
+}
+
+.table td, .table th{
+	padding: 1rem;
+}
+
+/*fila de los encabezados*/
+.table tr:first-child{
+	background-color: #292623;
+	color: #80bd01;
+}
+
+.table tr:nth-child(even){
+	background-color: #ccc;
+}
+
+.table tr:nth-child(odd):not(:first-child){
+	background-color: #eee;
+}
+
+.titulo{
+	text-align: center;
 }

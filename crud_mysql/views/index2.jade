@@ -1,0 +1,45 @@
+extends layout
+
+block content
+	section.container
+		include header.jade
+		article.item
+			//- validamos si la propiedad data (que es un arreglo) de la varible locals de routes/index.js tiene contenido 
+			-if(data.length)
+				table.table
+					tr
+						th Id
+						th Título
+						th Año
+						th Puntuación
+						th Poster
+						// ocupa dos columnas
+						th(colspan="2")
+							// formulario que procesa la ruta para agregar una peli
+							form(method="GET" action="/agregar")
+								// clase button y add de css
+								input.button.add(type="submit", value="Agregar")
+					//a través de data, volcamos el contenido con for each			
+					-each movie in data
+						tr
+							td #{movie.movie_id}
+							td #{movie.title}
+							td #{movie.release_year}
+							td #{movie.rating}
+							td
+								// llamamos a la ruta de la imagen con el campo image y la propiedad src 
+								img.poster(src="#{movie.image}", alt="#{movie.title}")
+							td
+								form(method="GET" action="/editar/#{movie.movie_id}")
+									input.button.edit(type="submit", value="Editar")
+							td
+								form(method="POST" action="/eliminar/#{movie.movie_id}")
+									input.button.delete(type="button", value="Eliminar" onclick="eliminar(this)")
+				script.
+					function eliminar(input)
+					{
+						var deleteOk = confirm('¿Estás seguro de eliminar la película?')
+						return (deleteOk) ? input.parentNode.submit() : false
+					}
+			-else
+				p.error No existen Películas en la Base de Datos.
