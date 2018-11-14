@@ -7,7 +7,7 @@ block content
 			//- formulario con el método form, procesa el home por el método post
 			//- le ponemos una ruta y le pasamos la variable data como parámetro
 			//- la variable data es un objeto, tiene una posición, si le pongo índice 0 accedo a toda la info
-			//- le pasamos el id de la película a editar y la busque
+			//- le pasamos el id de la película a la ruta actualizar
 			form.form(method="post" action="/actualizar/#{data[0].movie_id}")
 				fieldset
 					div.container.p1

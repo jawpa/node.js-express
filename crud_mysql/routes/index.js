@@ -31,9 +31,9 @@ function error404(req, res, next) {
 }
 
 router
-	// antes de ejecutar las rutas tenemos que ejecutar el middleware
-	// que ejecuta el archivo movies, la conexión a mysql
-	// todas las rutas usan ese modelo  
+	// antes de ejecutar las rutas tenemos que ejecutar el middleware de la conexión a la base de datos
+	// ejecuta el archivo models/movies.js
+	// todas las rutas usan este modelo  
 	.use(connection)
 
 	// ruta al home
@@ -44,7 +44,7 @@ router
 	      
 	      	// traemos a todas las películas
 	    	connection.query('SELECT * from movie', (err, rows) => {
-	    		if (err) return next(err);
+	    		if (err) return  next(new Error('No hay registros de películas'));
 	    		// ponemos los datos en una variable local
 	    		let locals = {
 	    			title : 'Lista de Películas',
@@ -66,7 +66,7 @@ router
 	})
 
 
-	// ruta del formmulario de agregar al home con la peli incorporada
+	// ruta para crear, datos del formmulario de creación
 	.post('/',(req, res, next) => {
 		req.getConnection((err, connection) => {
 	    	if (err) return next(err);
@@ -95,7 +95,7 @@ router
 	})
 
 
-	// ruta editar, con paso de parámetro
+	// ruta editar, con paso de parámetro (lo recibimos del form index)
 	.get('/editar/:movie_id',(req, res, next) => {
 		// obtengo el parámetro con el atributo params
 		let movie_id = req.params.movie_id
@@ -110,7 +110,7 @@ router
 	    	connection.query('SELECT * FROM movie WHERE movie_id = ? ', movie_id, (err, rows) => {
 	    		console.log(err,'....',rows)
 	    		if(err){
-	    			throw(err)
+	    			next(new Error('Error al editar la película'))
 	    		}else{
 	    			// almacenamos los datos de la película a editar
     				let locals = {
@@ -127,10 +127,10 @@ router
 	})
 
 
-	// ruta para actualizar la película
+	// ruta para actualizar la película (lo recibimos del form de editar)
 	.post('/actualizar/:movie_id',(req, res, next) => {
 		req.getConnection((err, connection) => {
-	    	if (err) return next(err);
+	    	if (err) return  next(err);
 	      
 	    	// traemos la info del formulario, mediante el atributo name de cada input
 	    	let movie = {
@@ -155,6 +155,27 @@ router
 			});
       	});
       	
+	})
+
+
+	// ruta para borrar película (desde el form del home)
+	.post('/eliminar/:movie_id',(req, res, next) => {
+		req.getConnection((err, connection) => {
+	    	if (err) return next(err);
+
+	    	let movie_id = req.params.movie_id
+	      
+	      	// borramos a la película indicada
+	    	connection.query('DELETE FROM movie WHERE movie_id = ?',movie_id, (err, rows) => {
+	    		console.log(err,'....',rows)
+	    		// si hay error, ejecutamos el siguiente middleware que es el de error
+	    		// definimos un nuevo error para que mostrar el mensaje
+	    		// si no hay error que nos redirija a la raiz
+	    		return (err) ? next(new Error('Registro no encontrado')) : res.redirect('/') 
+	        	
+		        
+			});
+      	});
 	})
 
 	// no puedo usar el método get porque necesito una ruta
