@@ -15,9 +15,6 @@ fieldset{
 	border: medium solid #80bd01;
 }
 
-.add{
-	background-color: green;
-}
 
 .button{
 	padding: .5rem 1rem;
@@ -28,6 +25,18 @@ fieldset{
 
 .button:hover{
 	opacity: .5;
+}
+
+.add{
+	background-color: darkgreen;
+}
+
+.edit{
+	background-color: #0871b2;
+}
+
+.delete{
+	background-color: #d23471;
 }
 
 .logo{

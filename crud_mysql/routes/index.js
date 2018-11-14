@@ -95,6 +95,68 @@ router
 	})
 
 
+	// ruta editar, con paso de parámetro
+	.get('/editar/:movie_id',(req, res, next) => {
+		// obtengo el parámetro con el atributo params
+		let movie_id = req.params.movie_id
+		// lo imprimimos para que se vea en la consola
+		console.log(movie_id)
+
+		req.getConnection((err, connection) => {
+	    	if (err) return next(err);
+	      
+	    	// reemplazamos al comodín ? por el contenido de la variable movie
+	    	// y traemos a la película a editar
+	    	connection.query('SELECT * FROM movie WHERE movie_id = ? ', movie_id, (err, rows) => {
+	    		console.log(err,'....',rows)
+	    		if(err){
+	    			throw(err)
+	    		}else{
+	    			// almacenamos los datos de la película a editar
+    				let locals = {
+    					title : 'Editar Película',
+    					data : rows
+    				}
+
+    				// enviamos los datos a un formulario
+    				res.render('edit-movie',locals)
+	    		}
+
+			});
+      	});
+	})
+
+
+	// ruta para actualizar la película
+	.post('/actualizar/:movie_id',(req, res, next) => {
+		req.getConnection((err, connection) => {
+	    	if (err) return next(err);
+	      
+	    	// traemos la info del formulario, mediante el atributo name de cada input
+	    	let movie = {
+	    		// tomamos lo que viene del cuerpo del formulario
+	    		movie_id : req.body.movie_id,
+	    		title : req.body.title,
+	    		release_year : req.body.release_year,
+	    		rating : req.body.rating,
+	    		image : req.body.image
+	    	}
+
+	    	// probamos los datos recibidos en la consola
+	      	console.log(movie)
+
+	      	// reemplazamos al primer comodín por el objeto movie
+	      	// reemplazamos al segundo comodín por la propiedad movie_id
+	      	// los parátros reemplazantes forman un arreglo
+	    	connection.query('UPDATE movie SET ? WHERE movie_id = ? ', [movie, movie.movie_id], (err, rows) => {
+	    		// si hay un error, que nos redirija al formulario editar
+	    		return (err) ? res.redirect('/editar/:movie_id') : res.redirect('/')
+
+			});
+      	});
+      	
+	})
+
 	// no puedo usar el método get porque necesito una ruta
 	// le decimos que use el middleware
 	// tiene que estar declarado al final para que no marque error
