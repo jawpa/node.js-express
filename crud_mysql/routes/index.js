@@ -3,6 +3,7 @@
 var 
   	// requerimos el objeto Movies que tiene la configuración de la conexión
   	// está en el archivo movies.js
+  	// lo usamos como un middleware
     connection = require('../models/movies'),
     express = require('express'),
 	// creamos un objeto router

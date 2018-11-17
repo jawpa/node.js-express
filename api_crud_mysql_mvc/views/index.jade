@@ -1,0 +1,35 @@
+extend layout
+
+block content
+  section.container
+    div.item.logo
+    div.item
+      h1
+        a(href="/")=title
+      article.item
+        // validamos si la propiedad data (que es un arreglo) de la varible locals de routes/index.js tiene contenido 
+        -if (data.length)
+          table
+            tr
+              th Id
+              th Título
+              th Año
+              th Puntuación
+              th Poster
+              th
+              th
+          // a través de data, volcamos el contenido con for each
+            -each movie in data
+              tr
+                td #{movie.movie_id}
+                td #{movie.title}
+                td #{movie.realese_year}
+                td #{movie.rating}
+                td
+                  // damos estilos con poster
+                  // llamaos a la ruta de la imagen con el campo image y la propiedad src 
+                  img.poster(src="#{movie.image}", alt="#{movie.title}") 
+                td 
+                td 
+        -else
+          p.error No existen películas en la base de datos

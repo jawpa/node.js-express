@@ -1,6 +1,7 @@
 'use strict'
 // este archivo contiene la lógica de la conexión con mysql
 var mysql = require('mysql'),
+// podemos usar a la variable de la conexión como middleware 
 	myConnection = require('express-myconnection'),
 	dbOptions = {
       host: 'localhost',
