@@ -1,0 +1,55 @@
+extends layout
+
+block content
+	section.container
+		include header
+		article.item
+			//- validamos si la propiedad data (que es un arreglo) de la varible locals de routes/index.js tiene contenido 
+			-if(data.length)
+				table.table
+					tr
+						th Id
+						th Título
+						th Año
+						th Puntuación
+						th Poster
+						// ocupa dos columnas
+						th(colspan="2")
+							// formulario que procesa la ruta para agregar una peli
+							form(method="GET" action="/agregar")
+								// clase button y add de css
+								input.button.add(type="submit", value="Agregar")
+					//a través de data, volcamos el contenido con for each			
+					-each movie in data
+						tr
+							td #{movie.movie_id}
+							td #{movie.title}
+							td #{movie.release_year}
+							td #{movie.rating}
+							td
+								// llamamos a la ruta de la imagen con el campo image y la propiedad src 
+								img.poster(src="#{movie.image}", alt="#{movie.title}")
+							td
+								// llamamos al formulario editar y le pasamos la id
+								form(method="GET" action="/editar/#{movie.movie_id}")
+									input.button.edit(type="submit", value="Editar")
+							td
+								// en vez de ejecutar el método por post lo va hacer por delete
+								form(method="POST" action="/eliminar/#{movie.movie_id}")
+									input.button.delete(type="button", value="Eliminar" onclick="eliminar(this)")
+									// creamos el campo oculto
+									// usamos el parámetro _method y el damos valor delete
+									// cuando express detecte el delete sobreescribirá el verbo del formulario
+									input(type="hidden", name="_method", value="delete") 
+
+				// definimos a la función eliminar					
+				script.
+					function eliminar(input)
+					{
+						//- le preguntamos si quiere eliminar el registro
+						var deleteOk = confirm('¿Estás seguro de eliminar la película?')
+						 //- si es true, procesamos el elemento padre del input (que es el formulario)
+						return (deleteOk) ? input.parentNode.submit() : false
+					}
+			-else
+				p.error No existen Películas en la Base de Datos.

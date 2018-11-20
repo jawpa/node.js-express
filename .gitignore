@@ -4,5 +4,6 @@ proyecto-generador/node_modules/
 proyecto_generacion_propia/node_modules/
 crud_mysql/node_modules/
 api_crud_mysql_mvc/node_modules/
+api_rest_mysql_mvc/node_modules/
 *.log
 .DS_Store
