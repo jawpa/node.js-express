@@ -16,13 +16,18 @@ router
 
 	.get('/agregar', MovieController.addForm)
 
-	.post('/', MovieController.insert)
+	// .post('/', MovieController.insert)
+	// insertar y actualizar tienen un comportamiento parecido
+	.post('/', MovieController.save)
 
 	.get('/editar/:movie_id', MovieController.getOne)
 
 	// .post('/actualizar/:movie_id', MovieController.update)
 	// el api-rest usa put para actualiar
-	.put('/actualizar/:movie_id', MovieController.update)
+	// .put('/actualizar/:movie_id', MovieController.update)
+	// insertar y actualizar tienen un comportamiento parecido
+	.put('/actualizar/:movie_id', MovieController.save)
+
 
 	// .post('/eliminar/:movie_id',MovieController.delete)
 	// el api-rest una delete para borrar

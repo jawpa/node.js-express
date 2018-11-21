@@ -21,11 +21,29 @@ MovieModel.getOne = (id,cb) => conn.query('SELECT * FROM movie WHERE movie_id = 
 
 // inserta película
 // como parámetros el insert necesita los datos que se van a insertar y la callback previamente definida en el controlador
-MovieModel.insert = (data,cb) =>  conn.query('INSERT INTO movie set ? ', data, cb)
+// MovieModel.insert = (data,cb) =>  conn.query('INSERT INTO movie set ? ', data, cb)
 
 
 // actualizamos una peli
-MovieModel.update = (data,cb) => conn.query('UPDATE movie SET ? WHERE movie_id = ? ',[data,data.movie_id], cb)
+// MovieModel.update = (data,cb) => conn.query('UPDATE movie SET ? WHERE movie_id = ? ',[data,data.movie_id], cb)
+
+// salvamos la película
+// traemos a la película buscada, si existe, la actualizamos sino la insertamos
+MovieModel.save = (data,cb) =>  {
+	conn.query('SELECT * FROM movie WHERE movie_id = ?',data.movie_id,(err, rows) => {
+		console.log(`Número de registros afectados: ${rows.length} `)
+
+		if(err){
+			return err
+		}
+		else{
+			return (rows.length) ? conn.query('UPDATE movie SET ? WHERE movie_id = ? ',[data,data.movie_id], cb) : conn.query('INSERT INTO movie set ? ', data, cb)
+		}
+
+		
+	})
+}
+
 
 
 // borramos una peli

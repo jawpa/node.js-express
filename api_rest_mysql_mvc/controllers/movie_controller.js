@@ -69,43 +69,77 @@ MovieController.getOne = (req, res, next) => {
 	})
 }
 
-// inserta película
-MovieController.insert = (req, res, next) => {
-	let movie = {
-		// tomamos lo que viene del cuerpo del formulario
-		movie_id : req.body.movie_id,
-		title : req.body.title,
-		release_year : req.body.release_year,
-		rating : req.body.rating,
-		image : req.body.image
-	}
+// reemplazamos insert y update por el método save
+// MovieController.insert = (req, res, next) => {
+// 	let movie = {
+// 		// tomamos lo que viene del cuerpo del formulario
+// 		movie_id : req.body.movie_id,
+// 		title : req.body.title,
+// 		release_year : req.body.release_year,
+// 		rating : req.body.rating,
+// 		image : req.body.image
+// 	}
 
-	// probamos los datos recibidos en la consola
-  	console.log(movie)
+// 	// probamos los datos recibidos en la consola
+//   	console.log(movie)
 
-  	// definimos la función del modelo, que la tomará
-  	// le pasamos los dos parámetros: los datos movies y la función anónima
-  	// la función recibe un parámetro error que significa un error de sintaxis sql
-	MovieModel.insert(movie, (err) => {
-		// si existe un error, generamos una vista de tipo error
-		if (err) {
-			let locals = {
-				title : `Error al agregar la película ${movie.movie_id} en la base de datos`,
-				description : 'Error de Sintaxis SQL',
-				error : err
-			}
-			// le pasamos a la vista error la variable que contiene el objeto literal js
-			res.render('error',locals)
-		}
-		// si no hay error nos redirigimos al home
-		else{
-			res.redirect('/')
-		}
-	})
-}
+//   	// definimos la función del modelo, que la tomará
+//   	// le pasamos los dos parámetros: los datos movies y la función anónima
+//   	// la función recibe un parámetro error que significa un error de sintaxis sql
+// 	MovieModel.insert(movie, (err) => {
+// 		// si existe un error, generamos una vista de tipo error
+// 		if (err) {
+// 			let locals = {
+// 				title : `Error al agregar la película ${movie.movie_id} en la base de datos`,
+// 				description : 'Error de Sintaxis SQL',
+// 				error : err
+// 			}
+// 			// le pasamos a la vista error la variable que contiene el objeto literal js
+// 			res.render('error',locals)
+// 		}
+// 		// si no hay error nos redirigimos al home
+// 		else{
+// 			res.redirect('/')
+// 		}
+// 	})
+// }
 
-// actualizamos una peli
-MovieController.update = (req, res, next) => {
+// // actualizamos una peli
+// MovieController.update = (req, res, next) => {
+// 	let movie = {
+// 		// tomamos lo que viene del cuerpo del formulario de edición
+// 		movie_id : req.body.movie_id,
+// 		title : req.body.title,
+// 		release_year : req.body.release_year,
+// 		rating : req.body.rating,
+// 		image : req.body.image
+// 	}
+
+// 	// probamos los datos recibidos en la consola
+//   	console.log(movie)
+
+//   	// definimos la función del modelo, que la tomará
+//   	// le pasamos los dos parámetros: los datos movies y la función anónima
+//   	// la función recibe un parámetro error que significa un error de sintaxis sql
+// 	MovieModel.update(movie, (err) => {
+// 		// si existe un error, generamos una vista de tipo error
+// 		if (err) {
+// 			let locals = {
+// 				title : `Error al actualizar la película ${movie.movie_id} en la base de datos`,
+// 				description : 'Error de Sintaxis SQL',
+// 				error : err
+// 			}
+// 			// le pasamos a la vista error la variable que contiene el objeto literal js
+// 			res.render('error',locals)
+// 		}
+// 		// si no hay error nos redirigimos al home para ver todas las películas con la editada
+// 		else{
+// 			res.redirect('/')
+// 		}
+// 	})
+// }
+
+MovieController.save = (req, res, next) => {
 	let movie = {
 		// tomamos lo que viene del cuerpo del formulario de edición
 		movie_id : req.body.movie_id,
@@ -118,14 +152,12 @@ MovieController.update = (req, res, next) => {
 	// probamos los datos recibidos en la consola
   	console.log(movie)
 
-  	// definimos la función del modelo, que la tomará
-  	// le pasamos los dos parámetros: los datos movies y la función anónima
-  	// la función recibe un parámetro error que significa un error de sintaxis sql
-	MovieModel.update(movie, (err) => {
+  	// llamamos al método save
+	MovieModel.save(movie, (err) => {
 		// si existe un error, generamos una vista de tipo error
 		if (err) {
 			let locals = {
-				title : `Error al actualizar la película ${movie.movie_id} en la base de datos`,
+				title : `Error al salvar la película ${movie.movie_id} en la base de datos`,
 				description : 'Error de Sintaxis SQL',
 				error : err
 			}
@@ -138,6 +170,8 @@ MovieController.update = (req, res, next) => {
 		}
 	})
 }
+
+
 
 // // borramos una peli
 MovieController.delete = (req, res, next) => {
